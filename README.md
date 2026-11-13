@@ -46,16 +46,12 @@ This Python script is a part of the `bitcoin-public-key-to-private-key` reposito
 ### Disclaimer
 This tool is provided for educational and research purposes only. The author is not responsible for any misuse or illegal activities associated with this script. Users are advised to ensure compliance with all local laws and regulations related to cryptographic operations and digital signatures.
 
+```
 
+## Support this project
 
-
-
-
-
-
-
-
-
-
-
-
+<p align="center">
+  <a href="https://buymeacoffee.com/ufodia">
+    <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" height="60">
+  </a>
+</p>
