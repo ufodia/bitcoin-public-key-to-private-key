@@ -1,54 +1,44 @@
-# Bitcoin Public Key to Private Key Converter
+# Bitcoin public-key range search
 
-## Description
-This Python script is a part of the `bitcoin-public-key-to-private-key` repository. It is designed to perform cryptographic operations on Bitcoin ECDSA public keys. Specifically, it subtracts the generator point `G` from a given public key multiple times. This tool finds the private key in decimal format. You can then convert this decimal private key to its hexadecimal format using any decimal-to-hex converter. This script is intended primarily for educational and research purposes in the fields of cryptography and blockchain technology.
+A Python experiment that samples private-key candidates within a specified bit range and compares their secp256k1 public points to a supplied public key.
+
+> [!WARNING]
+> This is **not a general public-key-to-private-key converter**. It performs random candidate search, with replacement: candidates may be repeated and the search may never finish. Recovering a normally generated Bitcoin private key from its public key is computationally infeasible in practice. The repository name is historical.
+
+## How it works
+
+For each sampled integer `k` in the range `2^(bit-1)` through `2^bit - 1`, the script computes `P - kG`, where `P` is the supplied point and `G` is the secp256k1 generator. If the result is the point at infinity, the candidate corresponds to the supplied point. The sampling is random, not exhaustive; there is no guaranteed completion time.
+
+A match is printed in decimal and appended to `found.txt` in plaintext. That file contains sensitive key material if real keys are used. Use only toy keys and public keys you are authorized to test; do not use this experiment for wallet security or key storage.
 
 ## Installation
 
-### Prerequisites
-- Python 3
-- `ecdsa` Python package
+Prerequisites: Python 3 and the `ecdsa` package.
 
-### Setup
-  1. Clone the repository:
-     ```bash
-     git clone https://github.com/ufodia/bitcoin-public-key-to-private-key
-     
-  2. Navigate to the cloned repository:
-  
-     ```bash
-     cd bitcoin-public-key-to-private-key
-     
-  3. Install required packages:
-   
-      ```bash
-      pip install ecdsa
-
-
-
-### Setup
-    Run the script with the following arguments:
-    
-      -pb or --pubkey: Your public key in hexadecimal format.
-      
-      -b or --bit: The bit range for the operation.
-  
-   #### Example:
-    
-      
-      
-      python pubtoprivate.py -b 15 -pb 04fea58ffcf49566f6e9e9350cf5bca2861312f422966e8db16094beb14dc3df2cc71136e9f21ec86870c3a999f045d712f848c6fd6ed9582521c3f7444c8f182e
-
-
-## Donate: 
-**BTC**: `1GZdNtQYa2DN4b3hLekrYErv9c8WLqbBTm`
-
-### Disclaimer
-This tool is provided for educational and research purposes only. The author is not responsible for any misuse or illegal activities associated with this script. Users are advised to ensure compliance with all local laws and regulations related to cryptographic operations and digital signatures.
-
+```bash
+git clone https://github.com/ufodia/bitcoin-public-key-to-private-key
+cd bitcoin-public-key-to-private-key
+pip install ecdsa
 ```
 
+## Usage
+
+```bash
+python pubtoprivate.py -b 15 -pb 04fea58ffcf49566f6e9e9350cf5bca2861312f422966e8db16094beb14dc3df2cc71136e9f21ec86870c3a999f045d712f848c6fd6ed9582521c3f7444c8f182e
+```
+
+- `-pb` / `--pubkey`: public key as hexadecimal.
+- `-b` / `--bit`: bit length defining the candidate range.
+
+This historical example is included to demonstrate the command syntax; its outcome and runtime are not guaranteed.
+
+## Disclaimer
+
+For educational and research use. Use only on material you own or are explicitly authorized to test.
+
 ## Support this project
+
+**BTC**: `1GZdNtQYa2DN4b3hLekrYErv9c8WLqbBTm`
 
 <p align="center">
   <a href="https://buymeacoffee.com/ufodia">
